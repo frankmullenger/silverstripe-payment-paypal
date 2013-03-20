@@ -16,18 +16,23 @@ class PayPalProcessor_Express extends PaymentProcessor {
 		$this->gateway->setReturnURL($returnURL);
 		
 		
+		// Set the cancel link
+		$AccountPage = AccountPage::get()->First();
+		$cancelURL = Director::absoluteURL($AccountPage->Link());
+		$this->gateway->setCancelURL($cancelURL);
+		
 		// Authorise the payment and get token 
-    $result = $this->gateway->authorise($this->paymentData);
+		$result = $this->gateway->authorise($this->paymentData);
     
-    if ($result && !$result->isSuccess()) {
+    		if ($result && !$result->isSuccess()) {
 			$this->payment->updateStatus($result);
 			$this->doRedirect();
 			return;
 		}
 
 		// Save the token for good measure
-    $this->payment->Token = $this->gateway->tokenID;
-    $this->payment->write();
+    		$this->payment->Token = $this->gateway->tokenID;
+    		$this->payment->write();
 
 		// Process payment
 		$result = $this->gateway->process($this->paymentData);
@@ -46,8 +51,8 @@ class PayPalProcessor_Express extends PaymentProcessor {
 		$this->payment = Payment::get()->byID($request->param('OtherID'));
 		
 		// Save the payer ID for good measure
-    $this->payment->PayerID = $request->getVar('PayerID');
-    $this->payment->write();
+    		$this->payment->PayerID = $request->getVar('PayerID');
+    		$this->payment->write();
 
 		// Reconstruct the gateway object
 		$methodName = $request->param('ID');
