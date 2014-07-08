@@ -99,6 +99,23 @@ class PayPalGateway_Express extends PayPalGateway {
 			'LANDINGPAGE' => 'Billing', //can be 'Billing' or 'Login'
 			'SOLUTIONTYPE' => 'Sole', //require paypal account, or not. Can be or 'Mark' (required) or 'Sole' (not required)
 		);
+		
+		//Check if swipestripe-addresses sub module is present
+		if (class_exists('Address') && $currentOrder = DataObject::get_one("Order", "ID = '".$data['Reference']."'")) {
+			
+			$prefill =  array(
+				//Prefill Shipping data
+				'SHIPTONAME' => $currentOrder->BillingFirstName.' '.$currentOrder->BillingSurname,
+				'SHIPTOSTREET' => $currentOrder->BillingAddress,
+				'SHIPTOSTREET2' => $currentOrder->BillingAddressLine2,
+				'SHIPTOCITY' => $currentOrder->BillingCity,
+				'SHIPTOSTATE' => $currentOrder->BillingState,
+				'SHIPTOCOUNTRYCODE' => $currentOrder->BillingCountryCode,
+				'SHIPTOZIP' => $currentOrder->BillingPostalCode
+			);
+			
+			$payload = array_merge($payload, $prefill);	
+		}
 
 		$response = $this->callAPI($payload);
 		$body = $this->formatResponse($response->getBody());
