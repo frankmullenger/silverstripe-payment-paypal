@@ -192,7 +192,7 @@ class PayPalGateway_Express extends PayPalGateway {
 				case 'PENDING':
 					$result = new PaymentGateway_Incomplete(
 						$response, 
-						_t('PayPalPayment.PENDING', 'The payment is pending because ' . $res['PAYMENTINFO_0_PENDINGREASON'])
+						_t('PayPalPayment.PENDING', 'The payment is pending because ' . $body['PAYMENTINFO_0_PENDINGREASON'])
 					);
 					break;
 				case 'REFUNDED':
