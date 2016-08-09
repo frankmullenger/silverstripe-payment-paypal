@@ -21,3 +21,7 @@ PayPalGateway_Express:
       'https://api-3t.sandbox.paypal.com/nvp'
     url:
       'https://www.sandbox.paypal.com/webscr?cmd=_express-checkout&token='
+
+Director:
+  rules:
+    'PayPalProcessor_Express//$Action/$ID/$OtherID`': 'PayPalProcessor_Express'
