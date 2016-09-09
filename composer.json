@@ -1,0 +1,31 @@
+{
+	"name": "silverstripe/payment-paypal",
+	"description": "PayPal payment support for the SilverStripe Payment module.",
+	"homepage": "https://github.com/frankmullenger/silverstripe-payment-paypal",
+	"type": "silverstripe-module",
+	"license": "BSD-3-Clause",
+	"keywords": ["silverstripe","payment"],
+	"authors": [
+		{
+			"name": "Ryan Dao",
+			"homepage": "https://github.com/ryandao",
+			"role": "Developer"
+		},
+		{
+			"name": "Frank Mullenger",
+			"homepage": "https://github.com/frankmullenger",
+			"role": "Developer"
+		},
+		{
+			"name": "Jeremy Shipman",
+			"homepage": "https://github.com/jedateach",
+			"role": "Developer"
+		}
+	],
+	"require":
+	{
+		"silverstripe/cms": "3.*",
+		"silverstripe/framework": "3.*",
+		"silverstripe/payment": "1.0.*"
+	}
+}
